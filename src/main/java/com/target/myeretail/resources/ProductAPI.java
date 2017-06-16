@@ -30,7 +30,6 @@ public class ProductAPI {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getProductDetails(@PathParam("id") String id) {
-		System.out.println("getting product details for id:: " + id);
 		return delegate.getProductDetails(id);
 	}
 
@@ -45,7 +44,7 @@ public class ProductAPI {
 	
 /**
  * external api mocking for api.target.com
- * TO DO: needs to be used only in home test environment :)
+ * TO DO: needs to be used only in local test environment :)
  * @param id
  * @return
  */

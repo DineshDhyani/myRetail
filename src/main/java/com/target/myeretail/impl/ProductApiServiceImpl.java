@@ -42,7 +42,9 @@ public class ProductApiServiceImpl extends ProductApiService {
 	public Response getProductDetails(String id) {
 		Product product = null;
 		try {
+			LOG.info("get product details for id", id);
 			
+			LOG.info("Async call to api.target.com for product name");
 			Future<Product> future= Executors.newCachedThreadPool().submit(
 					new TargetClient(id, "descriptions", "TCIN", "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz"));
 			
@@ -63,6 +65,7 @@ public class ProductApiServiceImpl extends ProductApiService {
 	@Override
 	public Response updateProductDetails(String id, Product product) {
 		try {
+			LOG.info("updating product with id " , id);
 			BasicDBObject query = new BasicDBObject("id", id);
 			product.setId(null);
 			Product result = (Product) productPriceDao.update(query, product);
@@ -79,6 +82,7 @@ public class ProductApiServiceImpl extends ProductApiService {
 	public Response getProductNameFromExternalAPI(String id, String fields, String id_type, String key) {
 
 		try {
+			LOG.info("external api (mocked) called for id " , id);
 			Product productName = (Product) productNameDao
 					.get(new BasicDBObject("id", id).append("fields", fields).append("id_type", id_type));
 			return RetailResponse.getSuccessResponse(productName);
