@@ -10,5 +10,7 @@ public abstract class ProductApiService {
 
 	public abstract Response updateProductDetails(String id, Product product);
 
+	public abstract Response getProductNameFromExternalAPI(String id, String fields, String id_type, String key) ;
+
 	
 }
