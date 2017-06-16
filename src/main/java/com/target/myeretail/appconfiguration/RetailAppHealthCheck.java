@@ -4,7 +4,7 @@ import com.codahale.metrics.health.HealthCheck;
 
 /**
  * dropwizard health check configuration
- * @author ramans
+ * @author ddhyani
  *
  */
 public class RetailAppHealthCheck extends HealthCheck {

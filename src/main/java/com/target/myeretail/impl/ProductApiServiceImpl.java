@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mongodb.BasicDBObject;
+import com.target.myeretail.constants.ProductConstants;
 import com.target.myeretail.db.MongoJackDao;
 import com.target.myeretail.db.MongoJackDaoImpl;
 import com.target.myeretail.exception.ProductException;

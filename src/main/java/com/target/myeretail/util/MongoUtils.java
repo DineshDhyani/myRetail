@@ -4,7 +4,7 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
-import com.target.myeretail.impl.ProductConstants;
+import com.target.myeretail.constants.ProductConstants;
 
 /**
  * singleton interface to get mongo db instance

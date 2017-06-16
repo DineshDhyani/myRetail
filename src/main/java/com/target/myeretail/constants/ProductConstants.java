@@ -1,4 +1,4 @@
-package com.target.myeretail.impl;
+package com.target.myeretail.constants;
 
 public class ProductConstants {
 
