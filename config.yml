@@ -1,0 +1,25 @@
+version: 0.0.1
+ 
+# Change default server ports
+server:
+  applicationConnectors: 
+  - type: http
+    port: 9090
+  adminConnectors:
+  - type: http
+    port: 9091
+
+swagger:
+  resourcePackage: com.target.myeretail.resources
+  
+  logging:
+  level: INFO
+  appenders:
+    - type: file
+      currentLogFilename: /var/log/retail-micro.log
+      threshold: ALL
+      archive: true
+      archivedLogFilenamePattern: /var/log/retail-micro-%d.log
+      archivedFileCount: 5
+      timeZone: UTC
+      logFormat: # TODO
