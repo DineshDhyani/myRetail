@@ -7,21 +7,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mongodb.BasicDBObject;
+import com.target.myeretail.Response.RetailResponse;
 import com.target.myeretail.constants.ProductConstants;
 import com.target.myeretail.db.MongoJackDao;
 import com.target.myeretail.db.MongoJackDaoImpl;
 import com.target.myeretail.exception.ProductException;
 import com.target.myeretail.model.Product;
 import com.target.myeretail.resources.ProductApiService;
-import com.target.myeretail.util.ApiResponseMessage;
 import com.target.myeretail.util.MongoUtils;
-import com.target.myeretail.util.ResponseError;
 import com.target.myeretail.util.TargetClient;
 
 public class ProductApiServiceImpl extends ProductApiService {
 
 	static MongoJackDao<Product> productPriceDao;
 	static MongoJackDao<Product> productNameDao;
+	
 	protected final static Logger LOG = LoggerFactory.getLogger(ProductApiServiceImpl.class);
 
 	static {
@@ -45,11 +45,11 @@ public class ProductApiServiceImpl extends ProductApiService {
 			t.init(id, "descriptions", "TCIN", "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz");
 			product.setName(t.getProduct().getName());
 
-			return getSuccessResponse(product);
+			return RetailResponse.getSuccessResponse(product);
 		} catch (ProductException e) {
-			return getProductExceptionResponse(e);
+			return RetailResponse.getProductExceptionResponse(e);
 		} catch (Exception e) {
-			return getUnknownExceptionResponse(e);
+			return RetailResponse.getUnknownExceptionResponse(e);
 		}
 
 	}
@@ -79,12 +79,12 @@ public class ProductApiServiceImpl extends ProductApiService {
 			BasicDBObject query = new BasicDBObject("id", id);
 			product.setId(null);
 			Product result = (Product) productPriceDao.update(query, product);
-			return getSuccessResponse(result);
+			return RetailResponse.getSuccessResponse(result);
 
 		} catch (ProductException e) {
-			return getProductExceptionResponse(e);
+			return RetailResponse.getProductExceptionResponse(e);
 		} catch (Exception e) {
-			return getUnknownExceptionResponse(e);
+			return RetailResponse.getUnknownExceptionResponse(e);
 		}
 	}
 
@@ -94,29 +94,14 @@ public class ProductApiServiceImpl extends ProductApiService {
 		try {
 			Product productName = (Product) productNameDao
 					.get(new BasicDBObject("id", id).append("fields", fields).append("id_type", id_type));
-			return getSuccessResponse(productName);
+			return RetailResponse.getSuccessResponse(productName);
 
 		} catch (ProductException e) {
-			return getProductExceptionResponse(e);
+			return RetailResponse.getProductExceptionResponse(e);
 		} catch (Exception e) {
-			return getUnknownExceptionResponse(e);
+			return RetailResponse.getUnknownExceptionResponse(e);
 		}
 	}
 
-	private Response getSuccessResponse(Object result) {
-		return Response.ok().entity(new ApiResponseMessage(result)).build();
-	}
-
-	private Response getProductExceptionResponse(ProductException e) {
-		ResponseError error = new ResponseError().code(e.getCode()).message(e.getMessage());
-		return Response.status(e.getStatus()).entity(new ApiResponseMessage().error(error)).build();
-	}
-
-	private Response getUnknownExceptionResponse(Exception e) {
-		e.printStackTrace();
-		ResponseError error = new ResponseError().message(e.getMessage());
-		ApiResponseMessage res = new ApiResponseMessage().error(error);
-		return Response.serverError().entity(res).build();
-	}
-
+	
 }
