@@ -47,9 +47,7 @@ public class ProductApiServiceImpl extends ProductApiService {
 					new TargetClient(id, "descriptions", "TCIN", "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz"));
 			
 			product = (Product) productPriceDao.get(id);
-				//TargetClient t = new TargetClient();
-			//t.init(id, "descriptions", "TCIN", "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz");
-			//product.setName(t.getProduct().getName());
+
 			product.setName(future.get().getName());
 
 			return RetailResponse.getSuccessResponse(product);
@@ -61,24 +59,6 @@ public class ProductApiServiceImpl extends ProductApiService {
 
 	}
 
-	public static void main(String[] args) {
-
-		try {
-			System.out.println("------- insert done ------- ");
-			Product productPrice = (Product) productPriceDao.get("56789");
-
-			System.out.println(productPrice);
-
-			Product productName = (Product) productNameDao
-					.get(new BasicDBObject("id", "56789").append("fields", "descriptions").append("id_type", "TCIN"));
-			System.out.println(productName.getName());
-			productPrice.setName(productName.getName());
-
-			System.out.println("final product " + productPrice);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	public Response updateProductDetails(String id, Product product) {
@@ -109,6 +89,26 @@ public class ProductApiServiceImpl extends ProductApiService {
 			return RetailResponse.getUnknownExceptionResponse(e);
 		}
 	}
+	
+	/*public static void main(String[] args) {
+
+	try {
+		System.out.println("------- insert done ------- ");
+		Product productPrice = (Product) productPriceDao.get("56789");
+
+		System.out.println(productPrice);
+
+		Product productName = (Product) productNameDao
+				.get(new BasicDBObject("id", "56789").append("fields", "descriptions").append("id_type", "TCIN"));
+		System.out.println(productName.getName());
+		productPrice.setName(productName.getName());
+
+		System.out.println("final product " + productPrice);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
+*/
 
 	
 }

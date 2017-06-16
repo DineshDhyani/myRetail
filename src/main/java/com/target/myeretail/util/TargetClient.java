@@ -32,6 +32,10 @@ public class TargetClient implements Callable<Product>{
                 .queryParam("key", key)
                 ;
     }
+	
+	public Product call() throws Exception {
+		return getProduct();
+	}
 
     public Product getProduct() {
       
@@ -54,18 +58,13 @@ public class TargetClient implements Callable<Product>{
         
     }
     
-    /*public static void main(String[] args) {
-    	TargetClient t= new TargetClient();
-    	t.init("56789", "descriptions", "TCIN", "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz");
-    	
+	 /*public static void main(String[] args) {
+	TargetClient t= new TargetClient();
+	t.init("56789", "descriptions", "TCIN", "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz");
+	
 
-    		
-			System.out.println(t.getProduct());
-    	
-	}*/
-
-	public Product call() throws Exception {
-
-		return getProduct();
-	}
+		
+		System.out.println(t.getProduct());
+	
+}*/
 }
