@@ -1,5 +1,7 @@
 package com.target.myeretail.util;
 
+import java.util.concurrent.Callable;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -10,14 +12,14 @@ import org.codehaus.jettison.json.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.target.myeretail.model.Product;
 
-public class TargetClient {
+public class TargetClient implements Callable<Product>{
 	
     private static final String HTTPS_API_TARGET_COM_PRODUCTS_V3 = "https://api.target.com/products/v3/";
     private static final String HTTP_TEST_API_TARGET_COM_PRODUCTS_V1 = "http://localhost:9090/myretail/v1/mockurl/products/";
 	private Client client;
     private WebTarget target;
     
-	public void init(String id, String fields, String id_type, String key ) {
+	public  TargetClient(String id, String fields, String id_type, String key ) {
         client = ClientBuilder.newClient();
         //	https://api.target.com/products/v3/13860428?fields=descriptions;id_type=TCIN 
        // 	&key=43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz
@@ -52,7 +54,7 @@ public class TargetClient {
         
     }
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
     	TargetClient t= new TargetClient();
     	t.init("56789", "descriptions", "TCIN", "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz");
     	
@@ -60,5 +62,10 @@ public class TargetClient {
     		
 			System.out.println(t.getProduct());
     	
+	}*/
+
+	public Product call() throws Exception {
+
+		return getProduct();
 	}
 }

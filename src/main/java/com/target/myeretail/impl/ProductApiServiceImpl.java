@@ -1,5 +1,8 @@
 package com.target.myeretail.impl;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import javax.ws.rs.core.Response;
 
 import org.mongojack.JacksonDBCollection;
@@ -39,11 +42,15 @@ public class ProductApiServiceImpl extends ProductApiService {
 	public Response getProductDetails(String id) {
 		Product product = null;
 		try {
+			
+			Future<Product> future= Executors.newCachedThreadPool().submit(
+					new TargetClient(id, "descriptions", "TCIN", "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz"));
+			
 			product = (Product) productPriceDao.get(id);
-
-			TargetClient t = new TargetClient();
-			t.init(id, "descriptions", "TCIN", "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz");
-			product.setName(t.getProduct().getName());
+				//TargetClient t = new TargetClient();
+			//t.init(id, "descriptions", "TCIN", "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz");
+			//product.setName(t.getProduct().getName());
+			product.setName(future.get().getName());
 
 			return RetailResponse.getSuccessResponse(product);
 		} catch (ProductException e) {
